@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MeetingOS — The Complete Meeting Intelligence Suite</title>
+<meta name="description" content="Six AI-powered tools that transform how your meetings run — before, during, and after. For individuals and organizations.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy-950:#060d18;
+    --navy-900:#0a1628;
+    --navy-850:#0c1c33;
+    --navy-800:#0f1f38;
+    --navy-700:#152a4a;
+    --navy-600:#1c3559;
+    --teal:#00d4aa;
+    --teal-bright:#1ff2c5;
+    --teal-dim:rgba(0,212,170,0.14);
+    --gold:#f59e0b;
+    --gold-bright:#fbbf24;
+    --gold-dim:rgba(245,158,11,0.14);
+    --text-1:#f4f7fb;
+    --text-2:#b9c4d6;
+    --text-3:#7c8aa3;
+    --border:rgba(255,255,255,0.08);
+    --border-strong:rgba(255,255,255,0.14);
+    --radius:16px;
+    --shadow-lg:0 20px 60px rgba(0,0,0,0.45);
+    --shadow-glow:0 0 40px rgba(0,212,170,0.15);
+    --shadow-glow-gold:0 0 40px rgba(245,158,11,0.15);
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+
+  body{
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    background:var(--navy-900);
+    color:var(--text-1);
+    line-height:1.6;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{color:inherit;text-decoration:none;}
+  ul{list-style:none;}
+  img,svg{display:block;max-width:100%;}
+  button{font-family:inherit;}
+
+  .container{max-width:1200px;margin:0 auto;padding:0 24px;}
+  ::selection{background:var(--teal);color:var(--navy-950);}
+
+  /* ---------- Background ---------- */
+  .bg-glow{
+    position:fixed;inset:0;z-index:-2;
+    background:
+      radial-gradient(ellipse 800px 500px at 15% -5%, rgba(0,212,170,0.14), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 85% 10%, rgba(245,158,11,0.10), transparent 60%),
+      var(--navy-900);
+  }
+  .bg-grid{
+    position:fixed;inset:0;z-index:-1;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size:64px 64px;
+    mask-image:radial-gradient(ellipse 1200px 800px at 50% 0%, black 40%, transparent 90%);
+  }
+
+  /* ---------- Navbar ---------- */
+  .navbar{
+    position:sticky;top:0;z-index:100;
+    background:rgba(10,22,40,0.72);
+    backdrop-filter:blur(16px) saturate(140%);
+    -webkit-backdrop-filter:blur(16px) saturate(140%);
+    border-bottom:1px solid var(--border);
+  }
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px;gap:16px;}
+  .logo{font-size:20px;font-weight:800;letter-spacing:-0.02em;display:flex;align-items:center;gap:8px;flex-shrink:0;}
+  .logo .rocket{font-size:20px;filter:drop-shadow(0 0 8px rgba(245,158,11,0.5));}
+  .nav-links{display:flex;align-items:center;gap:36px;}
+  .nav-links a{font-size:14.5px;font-weight:500;color:var(--text-2);transition:color .2s ease;position:relative;}
+  .nav-links a:hover{color:var(--text-1);}
+  .nav-links a::after{content:'';position:absolute;left:0;bottom:-6px;width:0;height:2px;background:var(--teal);transition:width .25s ease;}
+  .nav-links a:hover::after{width:100%;}
+
+  .nav-cta{display:flex;align-items:center;gap:12px;}
+  .nav-menu-toggle{display:none;background:none;border:none;color:var(--text-1);font-size:26px;cursor:pointer;}
+
+  /* ---------- Buttons ---------- */
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    padding:13px 26px;border-radius:10px;font-weight:600;font-size:15px;cursor:pointer;
+    border:1px solid transparent;
+    transition:transform .2s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease;
+    white-space:nowrap;
+  }
+  .btn:active{transform:translateY(1px) scale(0.99);}
+
+  .btn-primary{background:linear-gradient(135deg, var(--teal), #00b894);color:var(--navy-950);box-shadow:0 8px 24px rgba(0,212,170,0.28);}
+  .btn-primary:hover{box-shadow:0 12px 32px rgba(0,212,170,0.45);transform:translateY(-2px);}
+
+  .btn-gold{background:linear-gradient(135deg, var(--gold-bright), var(--gold));color:var(--navy-950);box-shadow:0 8px 24px rgba(245,158,11,0.28);}
+  .btn-gold:hover{box-shadow:0 12px 32px rgba(245,158,11,0.45);transform:translateY(-2px);}
+
+  .btn-outline{background:transparent;color:var(--text-1);border:1px solid var(--border-strong);}
+  .btn-outline:hover{border-color:var(--teal);color:var(--teal-bright);transform:translateY(-2px);}
+
+  .btn-sm{padding:9px 16px;font-size:13.5px;border-radius:8px;}
+  .btn-full{width:100%;}
+
+  /* ---------- Section base ---------- */
+  section{position:relative;padding:110px 0;}
+
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;
+    letter-spacing:0.08em;text-transform:uppercase;color:var(--teal-bright);
+    background:var(--teal-dim);border:1px solid rgba(0,212,170,0.25);
+    padding:7px 16px;border-radius:999px;margin-bottom:24px;
+  }
+  .eyebrow.gold{color:var(--gold-bright);background:var(--gold-dim);border-color:rgba(245,158,11,0.3);}
+
+  .section-head{text-align:center;max-width:720px;margin:0 auto 64px;}
+  .section-head h2{font-size:clamp(26px,4vw,42px);font-weight:800;letter-spacing:-0.02em;margin-bottom:16px;}
+  .section-head p{color:var(--text-2);font-size:17px;}
+
+  .gradient-text{
+    background:linear-gradient(90deg, var(--teal-bright), var(--gold-bright));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+
+  /* ---------- Audience Selector ---------- */
+  .audience-selector{padding:48px 0 12px;}
+  .audience-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+  .audience-card{
+    display:block;
+    background:linear-gradient(160deg, var(--navy-800), var(--navy-900));
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:32px 30px;
+    cursor:pointer;
+    transition:transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+  }
+  .audience-card:hover{transform:translateY(-5px);border-color:var(--teal);box-shadow:var(--shadow-glow);}
+  .audience-card .aud-icon{font-size:28px;margin-bottom:10px;}
+  .audience-card .aud-title{font-size:19px;font-weight:700;margin-bottom:8px;}
+  .audience-card .aud-sub{color:var(--text-2);font-size:14.5px;}
+  .audience-card.b2b:hover{border-color:var(--gold);box-shadow:var(--shadow-glow-gold);}
+
+  /* ---------- Hero ---------- */
+  .hero{padding:96px 0 100px;text-align:center;position:relative;overflow:hidden;}
+  .hero-orb{
+    position:absolute;width:600px;height:600px;border-radius:50%;
+    background:radial-gradient(circle, rgba(0,212,170,0.20), transparent 70%);
+    top:-260px;left:50%;transform:translateX(-50%);
+    animation:pulseOrb 8s ease-in-out infinite;z-index:0;pointer-events:none;
+  }
+  @keyframes pulseOrb{
+    0%,100%{opacity:0.7;transform:translateX(-50%) scale(1);}
+    50%{opacity:1;transform:translateX(-50%) scale(1.15);}
+  }
+  .hero-content{position:relative;z-index:1;max-width:820px;margin:0 auto;}
+  .hero-banner{
+    display:inline-flex;align-items:center;gap:10px;
+    background:linear-gradient(90deg, rgba(245,158,11,0.14), rgba(0,212,170,0.14));
+    border:1px solid rgba(245,158,11,0.35);padding:9px 20px;border-radius:999px;
+    font-size:13.5px;font-weight:600;color:var(--gold-bright);margin-bottom:28px;
+    animation:fadeInUp .8s ease both;
+  }
+  .hero h1{
+    font-size:clamp(34px,5.5vw,60px);font-weight:900;letter-spacing:-0.03em;line-height:1.08;
+    margin-bottom:22px;animation:fadeInUp .8s ease .1s both;
+  }
+  .hero-sub{font-size:clamp(16px,2vw,19px);color:var(--text-2);max-width:640px;margin:0 auto 20px;animation:fadeInUp .8s ease .2s both;}
+  .hero-universal{
+    font-style:italic;color:var(--text-2);font-size:15.5px;max-width:560px;margin:0 auto 36px;
+    padding:14px 22px;border-left:2px solid var(--teal);background:rgba(0,212,170,0.05);
+    text-align:left;border-radius:0 10px 10px 0;animation:fadeInUp .8s ease .25s both;
+  }
+  .hero-ctas{display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;animation:fadeInUp .8s ease .3s both;}
+  .hero-note{margin-top:24px;font-size:13.5px;color:var(--text-3);animation:fadeInUp .8s ease .4s both;}
+
+  @keyframes fadeInUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+
+  /* ---------- Stats / Problem ---------- */
+  .problem{background:linear-gradient(180deg, transparent, var(--navy-800) 15%, var(--navy-800) 85%, transparent);}
+  .stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:56px;}
+  .stat-card{
+    background:linear-gradient(160deg, rgba(255,255,255,0.045), rgba(255,255,255,0.015));
+    border:1px solid var(--border);border-radius:var(--radius);padding:36px 28px;text-align:center;
+    transition:transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+  }
+  .stat-card:hover{transform:translateY(-6px);border-color:rgba(0,212,170,0.35);box-shadow:var(--shadow-glow);}
+  .stat-number{
+    font-size:clamp(32px,4vw,44px);font-weight:900;
+    background:linear-gradient(135deg, var(--teal-bright), var(--gold-bright));
+    -webkit-background-clip:text;background-clip:text;color:transparent;letter-spacing:-0.02em;margin-bottom:10px;
+  }
+  .stat-label{color:var(--text-2);font-size:14.5px;}
+  .problem-statement{text-align:center;font-size:19px;font-weight:600;max-width:680px;margin:0 auto;color:var(--text-1);}
+
+  /* ---------- Tools grid ---------- */
+  .tools-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+  .tool-card{
+    background:linear-gradient(160deg, var(--navy-800), var(--navy-900));
+    border:1px solid var(--border);border-radius:var(--radius);padding:32px 28px;
+    display:flex;flex-direction:column;
+    transition:transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+    position:relative;overflow:hidden;
+  }
+  .tool-card::before{
+    content:'';position:absolute;inset:0;
+    background:linear-gradient(135deg, rgba(0,212,170,0.08), transparent 60%);
+    opacity:0;transition:opacity .3s ease;
+  }
+  .tool-card:hover{transform:translateY(-8px);border-color:rgba(0,212,170,0.4);box-shadow:var(--shadow-lg), var(--shadow-glow);}
+  .tool-card:hover::before{opacity:1;}
+  .tool-card.free{border-color:rgba(245,158,11,0.25);}
+  .tool-card.free:hover{border-color:rgba(245,158,11,0.5);box-shadow:var(--shadow-lg), var(--shadow-glow-gold);}
+
+  .tool-icon{font-size:34px;margin-bottom:18px;display:inline-block;}
+  .tool-name{font-size:19px;font-weight:700;margin-bottom:10px;letter-spacing:-0.01em;}
+  .tool-desc{color:var(--text-2);font-size:14.5px;margin-bottom:24px;flex-grow:1;}
+  .tool-actions{
+    display:flex;align-items:center;justify-content:space-between;gap:12px;
+    position:relative;z-index:1;padding-top:16px;border-top:1px solid var(--border);
+  }
+  .tool-try{font-size:14px;font-weight:600;color:var(--teal-bright);transition:gap .2s ease;display:inline-flex;align-items:center;gap:4px;}
+  .tool-try:hover{gap:8px;}
+  .tool-price{
+    font-size:13px;font-weight:700;padding:8px 14px;border-radius:8px;
+    background:rgba(255,255,255,0.06);border:1px solid var(--border-strong);
+    transition:background .2s ease, border-color .2s ease;
+  }
+  .tool-price:hover{background:rgba(0,212,170,0.12);border-color:var(--teal);}
+  .tool-price.free-tag{background:rgba(245,158,11,0.12);border-color:rgba(245,158,11,0.35);color:var(--gold-bright);}
+  .tool-price.free-tag:hover{background:rgba(245,158,11,0.22);}
+
+  /* ---------- Individuals (B2C) — warm ---------- */
+  .individuals{
+    background:
+      radial-gradient(ellipse 700px 400px at 90% 0%, rgba(245,158,11,0.08), transparent 60%),
+      linear-gradient(180deg, transparent, var(--navy-850) 12%, var(--navy-850) 88%, transparent);
+  }
+  .individuals-statement{
+    text-align:center;font-size:18px;font-weight:600;max-width:600px;margin:0 auto 56px;color:var(--text-1);
+  }
+  .persona-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+  .persona-card{
+    background:linear-gradient(160deg, rgba(245,158,11,0.055), rgba(255,255,255,0.02));
+    border:1px solid rgba(245,158,11,0.15);
+    border-radius:14px;padding:26px 24px;
+    transition:transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+  }
+  .persona-card:hover{transform:translateY(-5px);border-color:rgba(245,158,11,0.45);box-shadow:var(--shadow-glow-gold);}
+  .persona-title{font-size:16.5px;font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:9px;}
+  .persona-card p{color:var(--text-2);font-size:13.8px;}
+  .persona-closing{
+    text-align:center;font-style:italic;color:var(--gold-bright);font-size:16px;font-weight:600;
+    margin-top:44px;
+  }
+
+  /* ---------- Organizations (B2B) — corporate ---------- */
+  .organizations{
+    background:
+      radial-gradient(ellipse 700px 400px at 10% 0%, rgba(0,212,170,0.08), transparent 60%),
+      linear-gradient(180deg, transparent, var(--navy-800) 12%, var(--navy-800) 88%, transparent);
+  }
+  .roi-card{
+    max-width:640px;margin:0 auto 64px;
+    background:linear-gradient(160deg, var(--navy-950), var(--navy-800));
+    border:1px solid var(--border-strong);
+    border-radius:var(--radius);
+    padding:8px;
+    box-shadow:var(--shadow-lg);
+  }
+  .roi-inner{
+    background:var(--navy-900);
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:34px 32px;
+  }
+  .roi-head{
+    font-size:13px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;
+    color:var(--text-3);margin-bottom:22px;text-align:center;
+  }
+  .roi-lead{font-size:15px;color:var(--text-2);margin-bottom:20px;text-align:center;}
+  .roi-rows{border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:18px 0;margin-bottom:22px;}
+  .roi-row{display:flex;align-items:center;justify-content:space-between;padding:9px 0;font-size:14.5px;color:var(--text-2);}
+  .roi-row span:last-child{font-weight:700;color:var(--text-1);font-variant-numeric:tabular-nums;}
+  .roi-total{
+    display:flex;align-items:center;justify-content:space-between;
+    font-size:19px;font-weight:800;color:var(--gold-bright);margin-bottom:26px;
+  }
+  .roi-compare{
+    display:flex;align-items:center;justify-content:space-between;gap:16px;
+    background:rgba(0,212,170,0.08);border:1px solid rgba(0,212,170,0.25);
+    border-radius:10px;padding:16px 20px;margin-bottom:18px;font-size:14.5px;
+  }
+  .roi-compare span:last-child{font-weight:700;color:var(--teal-bright);}
+  .roi-result{
+    text-align:center;font-size:24px;font-weight:900;
+    background:linear-gradient(135deg, var(--teal-bright), var(--gold-bright));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+
+  .b2b-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:64px;}
+  .b2b-card{
+    background:linear-gradient(160deg, rgba(0,212,170,0.045), rgba(255,255,255,0.015));
+    border:1px solid var(--border);
+    border-radius:12px;padding:30px 26px;
+    transition:transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+  }
+  .b2b-card:hover{transform:translateY(-5px);border-color:rgba(0,212,170,0.4);box-shadow:var(--shadow-glow);}
+  .b2b-card .b2b-icon{font-size:26px;margin-bottom:14px;}
+  .b2b-card h3{font-size:17px;font-weight:700;margin-bottom:10px;}
+  .b2b-card p{color:var(--text-2);font-size:14px;}
+
+  .who-buys-title{text-align:center;font-size:13px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-3);margin-bottom:26px;}
+  .who-buys-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
+  .who-buys-card{
+    background:var(--navy-800);border:1px solid var(--border);border-radius:10px;padding:20px;
+    transition:border-color .2s ease, transform .2s ease;
+  }
+  .who-buys-card:hover{border-color:var(--teal);transform:translateY(-3px);}
+  .who-buys-card h4{font-size:14.5px;font-weight:700;margin-bottom:6px;color:var(--teal-bright);}
+  .who-buys-card p{font-size:13px;color:var(--text-2);}
+
+  /* ---------- Pricing ---------- */
+  .pricing-banner{
+    text-align:center;max-width:560px;margin:0 auto 56px;
+    background:linear-gradient(90deg, rgba(245,158,11,0.12), rgba(0,212,170,0.12));
+    border:1px solid rgba(245,158,11,0.3);padding:14px 24px;border-radius:12px;
+    font-size:14.5px;font-weight:600;color:var(--gold-bright);
+  }
+  .pricing-subhead{
+    display:flex;align-items:center;gap:14px;margin:0 0 30px;
+    font-size:14px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;color:var(--text-3);
+  }
+  .pricing-subhead::after{content:'';flex:1;height:1px;background:var(--border);}
+  .pricing-block{margin-bottom:70px;}
+  .pricing-block:last-child{margin-bottom:0;}
+
+  .pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:stretch;}
+  .price-card{
+    background:linear-gradient(160deg, var(--navy-800), var(--navy-900));
+    border:1px solid var(--border);border-radius:var(--radius);padding:32px 26px;
+    display:flex;flex-direction:column;
+    transition:transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+    position:relative;
+  }
+  .price-card:hover{transform:translateY(-6px);border-color:rgba(0,212,170,0.35);}
+  .price-card.featured{
+    border-color:var(--teal);
+    background:linear-gradient(160deg, rgba(0,212,170,0.10), var(--navy-900));
+    box-shadow:0 0 0 1px rgba(0,212,170,0.25), var(--shadow-glow);
+  }
+  .price-card.b2b-tier{border-color:rgba(245,158,11,0.15);}
+  .price-card.b2b-tier:hover{border-color:rgba(245,158,11,0.4);box-shadow:var(--shadow-glow-gold);}
+  .price-card.b2b-tier.featured{
+    border-color:var(--gold);
+    background:linear-gradient(160deg, rgba(245,158,11,0.10), var(--navy-900));
+    box-shadow:0 0 0 1px rgba(245,158,11,0.25), var(--shadow-glow-gold);
+  }
+
+  .popular-tag{
+    position:absolute;top:-13px;left:50%;transform:translateX(-50%);
+    background:linear-gradient(135deg, var(--gold-bright), var(--gold));color:var(--navy-950);
+    font-size:11.5px;font-weight:800;letter-spacing:0.04em;padding:6px 14px;border-radius:999px;
+    white-space:nowrap;box-shadow:0 4px 12px rgba(245,158,11,0.4);
+  }
+
+  .price-tier-name{font-size:13px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-3);margin-bottom:14px;}
+  .price-amount{font-size:36px;font-weight:900;letter-spacing:-0.02em;margin-bottom:4px;}
+  .price-amount .regular{font-size:15px;font-weight:500;color:var(--text-3);text-decoration:line-through;margin-left:6px;}
+  .price-amount .per{font-size:15px;font-weight:500;color:var(--text-3);}
+  .price-amount .free-label{
+    background:linear-gradient(135deg, var(--teal-bright), var(--gold-bright));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .price-sub{color:var(--text-3);font-size:13px;margin-bottom:24px;}
+  .price-features{margin-bottom:28px;flex-grow:1;}
+  .price-features li{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:var(--text-2);padding:7px 0;}
+  .price-features li .check{color:var(--teal-bright);font-weight:800;flex-shrink:0;}
+  .b2b-tier .price-features li .check{color:var(--gold-bright);}
+
+  /* ---------- About ---------- */
+  .about-wrap{max-width:780px;margin:0 auto;text-align:center;}
+  .about-avatar{
+    width:76px;height:76px;border-radius:50%;
+    background:linear-gradient(135deg, var(--teal), var(--gold));
+    display:flex;align-items:center;justify-content:center;font-size:30px;
+    margin:0 auto 28px;box-shadow:0 8px 30px rgba(0,212,170,0.3);
+  }
+  .about-wrap p.body{font-size:18px;color:var(--text-2);margin-bottom:28px;line-height:1.8;}
+  .about-author{font-size:16px;font-weight:700;color:var(--text-1);margin-bottom:4px;}
+  .about-author-sub{font-size:13.5px;color:var(--text-3);margin-bottom:14px;}
+  .about-link{
+    color:var(--teal-bright);font-size:14.5px;font-weight:600;
+    border-bottom:1px solid rgba(0,212,170,0.35);padding-bottom:2px;transition:border-color .2s ease;
+  }
+  .about-link:hover{border-color:var(--teal-bright);}
+
+  /* ---------- Final CTA ---------- */
+  .final-cta{
+    text-align:center;
+    background:linear-gradient(135deg, rgba(0,212,170,0.10), rgba(245,158,11,0.08));
+    border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+  }
+  .final-cta h2{font-size:clamp(28px,4.5vw,44px);font-weight:900;letter-spacing:-0.02em;margin-bottom:16px;}
+  .final-cta > .container > p{color:var(--text-2);font-size:17px;margin-bottom:48px;}
+  .final-cta-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:820px;margin:0 auto;}
+  .final-cta-card{
+    background:rgba(10,22,40,0.5);border:1px solid var(--border-strong);border-radius:var(--radius);
+    padding:34px 30px;text-align:center;
+    transition:transform .25s ease, border-color .25s ease;
+  }
+  .final-cta-card:hover{transform:translateY(-5px);}
+  .final-cta-card.b2c:hover{border-color:var(--gold);}
+  .final-cta-card.b2b:hover{border-color:var(--teal);}
+  .final-cta-card .fc-icon{font-size:26px;margin-bottom:10px;}
+  .final-cta-card h3{font-size:18px;font-weight:700;margin-bottom:8px;}
+  .final-cta-card p{color:var(--text-2);font-size:14px;margin-bottom:22px;}
+
+  /* ---------- Footer ---------- */
+  footer{padding:56px 0 40px;}
+  .footer-inner{
+    display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;
+    padding-bottom:28px;border-bottom:1px solid var(--border);margin-bottom:24px;
+  }
+  .footer-logo{font-weight:800;font-size:16px;display:flex;align-items:center;gap:8px;}
+  .footer-links{display:flex;gap:28px;flex-wrap:wrap;}
+  .footer-links a{font-size:14px;color:var(--text-2);transition:color .2s ease;}
+  .footer-links a:hover{color:var(--teal-bright);}
+  .footer-copy{text-align:center;color:var(--text-3);font-size:13px;}
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:960px){
+    .stats-grid{grid-template-columns:1fr;}
+    .tools-grid{grid-template-columns:repeat(2,1fr);}
+    .persona-grid{grid-template-columns:repeat(2,1fr);}
+    .pricing-grid{grid-template-columns:1fr;max-width:420px;margin-left:auto;margin-right:auto;}
+    .b2b-grid{grid-template-columns:1fr;}
+    .who-buys-grid{grid-template-columns:repeat(2,1fr);}
+    .audience-grid{grid-template-columns:1fr;}
+    .final-cta-grid{grid-template-columns:1fr;}
+  }
+
+  @media (max-width:720px){
+    .nav-links{
+      position:absolute;top:72px;left:0;right:0;
+      background:rgba(10,22,40,0.98);backdrop-filter:blur(16px);
+      flex-direction:column;align-items:flex-start;padding:24px;gap:20px;
+      border-bottom:1px solid var(--border);display:none;
+    }
+    .nav-links.open{display:flex;}
+    .nav-menu-toggle{display:block;}
+    .nav-cta .btn-outline{display:none;}
+    section{padding:72px 0;}
+    .tools-grid{grid-template-columns:1fr;}
+    .persona-grid{grid-template-columns:1fr;}
+    .who-buys-grid{grid-template-columns:1fr;}
+    .hero-ctas,.final-cta-grid{flex-direction:column;width:100%;}
+    .hero-ctas .btn{width:100%;}
+    .footer-inner{flex-direction:column;align-items:flex-start;}
+    .roi-inner{padding:26px 20px;}
+    .roi-row,.roi-total,.roi-compare{font-size:13.5px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-glow"></div>
+<div class="bg-grid"></div>
+
+<!-- ============ NAVBAR ============ -->
+<header class="navbar">
+  <div class="container nav-inner">
+    <a href="#" class="logo"><span class="rocket">🚀</span> MeetingOS</a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#tools">Tools</a>
+      <a href="#individuals">For Individuals</a>
+      <a href="#organizations">For Organizations</a>
+      <a href="#pricing">Pricing</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="https://shetan01.github.io/meetingsmart" class="btn btn-outline btn-sm">Try Free →</a>
+      <a href="https://gum.co/meetingos" class="btn btn-primary btn-sm">Get MeetingOS →</a>
+      <button class="nav-menu-toggle" id="menuToggle" aria-label="Toggle menu">☰</button>
+    </div>
+  </div>
+</header>
+
+<!-- ============ AUDIENCE SELECTOR ============ -->
+<section class="audience-selector">
+  <div class="container">
+    <div class="audience-grid">
+      <a href="#individuals" class="audience-card b2c">
+        <div class="aud-icon">👤</div>
+        <div class="aud-title">For Individual Professionals</div>
+        <div class="aud-sub">Run every meeting with confidence and impact</div>
+      </a>
+      <a href="#organizations" class="audience-card b2b">
+        <div class="aud-icon">🏢</div>
+        <div class="aud-title">For Organizations</div>
+        <div class="aud-sub">Stop losing money to ineffective meetings</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="hero-orb"></div>
+  <div class="container hero-content">
+    <div class="hero-banner">🎉 Introductory Pricing — Save up to 35% for a limited time</div>
+    <h1>The Complete Meeting<br>Intelligence <span class="gradient-text">Suite</span></h1>
+    <p class="hero-sub">Six AI-powered tools that transform how your meetings run — before, during, and after.</p>
+    <p class="hero-universal">"If you've ever left a meeting thinking <em>'that could have gone better'</em> — MeetingOS was built for you."</p>
+    <div class="hero-ctas">
+      <a href="https://shetan01.github.io/meetingsmart" class="btn btn-primary">Try Free Tools →</a>
+      <a href="https://gum.co/meetingos" class="btn btn-gold">Get MeetingOS Bundle →</a>
+    </div>
+    <div class="hero-note">No credit card required to start · Lifetime access on paid tools</div>
+  </div>
+</section>
+
+<!-- ============ PROBLEM ============ -->
+<section class="problem">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">The Cost of Bad Meetings</div>
+      <h2>The Meeting Problem Is Costing Everyone</h2>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-number">$37B</div>
+        <div class="stat-label">Lost annually to unproductive meetings in the US</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">31 Hrs</div>
+        <div class="stat-label">Wasted per month per professional in ineffective meetings</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">11M</div>
+        <div class="stat-label">Meetings happen every day — most without clear outcomes</div>
+      </div>
+    </div>
+    <p class="problem-statement">Whether you are an individual professional or leading an organization — bad meetings cost you time, money, and momentum. MeetingOS was built to fix this.</p>
+  </div>
+</section>
+
+<!-- ============ TOOLS ============ -->
+<section id="tools">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">The Suite</div>
+      <h2>Everything You Need.<br>Before, During, and After.</h2>
+      <p>Six focused AI tools — each solving one critical part of the meeting lifecycle.</p>
+    </div>
+
+    <div class="tools-grid">
+      <div class="tool-card">
+        <span class="tool-icon">📋</span>
+        <div class="tool-name">MeetingPrep</div>
+        <p class="tool-desc">Walk into every meeting ready. AI-powered preparation for organizers and participants.</p>
+        <div class="tool-actions">
+          <a href="https://shetan01.github.io/meetingprep" class="tool-try">Try it →</a>
+          <a href="https://gum.co/meetingprep" class="tool-price">Buy $7</a>
+        </div>
+      </div>
+
+      <div class="tool-card">
+        <span class="tool-icon">🚀</span>
+        <div class="tool-name">MeetingKickoff</div>
+        <p class="tool-desc">Start strong. Perfect opening statement, icebreaker, and agenda framing for any meeting.</p>
+        <div class="tool-actions">
+          <a href="https://shetan01.github.io/meetingkickoff" class="tool-try">Try it →</a>
+          <a href="https://gum.co/meetingkickoff" class="tool-price">Buy $7</a>
+        </div>
+      </div>
+
+      <div class="tool-card">
+        <span class="tool-icon">🧠</span>
+        <div class="tool-name">MeetingDistill</div>
+        <p class="tool-desc">Transform raw notes or transcripts into pure actionable clarity in seconds.</p>
+        <div class="tool-actions">
+          <a href="https://shetan01.github.io/meetingdistill" class="tool-try">Try it →</a>
+          <a href="https://gum.co/meetingdistill" class="tool-price">Buy $7</a>
+        </div>
+      </div>
+
+      <div class="tool-card">
+        <span class="tool-icon">🎯</span>
+        <div class="tool-name">MeetingRally</div>
+        <p class="tool-desc">End every meeting with momentum. Powerful closing, call to action, and rally cry.</p>
+        <div class="tool-actions">
+          <a href="https://shetan01.github.io/meetingrally" class="tool-try">Try it →</a>
+          <a href="https://gum.co/meetingrally" class="tool-price">Buy $7</a>
+        </div>
+      </div>
+
+      <div class="tool-card free">
+        <span class="tool-icon">💸</span>
+        <div class="tool-name">MeetingSmart</div>
+        <p class="tool-desc">Calculate the real dollar cost of your meetings. Because every meeting has a price tag.</p>
+        <div class="tool-actions">
+          <a href="https://shetan01.github.io/meetingsmart" class="tool-try">Try it →</a>
+          <span class="tool-price free-tag">Always Free</span>
+        </div>
+      </div>
+
+      <div class="tool-card free">
+        <span class="tool-icon">🏃‍♀️</span>
+        <div class="tool-name">MeetingFit</div>
+        <p class="tool-desc">Discover the health impact of your meeting culture. Your meetings have a health cost too.</p>
+        <div class="tool-actions">
+          <a href="https://shetan01.github.io/meetingfit" class="tool-try">Try it →</a>
+          <span class="tool-price free-tag">Always Free</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOR INDIVIDUALS (B2C) ============ -->
+<section class="individuals" id="individuals">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow gold">👤 For Individuals</div>
+      <h2>Built For Every Professional Who Has Ever Left A Meeting Thinking <span class="gradient-text">"That Could Have Gone Better"</span></h2>
+    </div>
+    <p class="individuals-statement">You don't have to be the loudest voice in the room. You just need the right tools.</p>
+
+    <div class="persona-grid">
+      <div class="persona-card">
+        <div class="persona-title">🎯 The First-Time Manager</div>
+        <p>Running your first QBR or All Hands? Walk in with confidence not anxiety.</p>
+      </div>
+      <div class="persona-card">
+        <div class="persona-title">⭐ The Ambitious Professional</div>
+        <p>Want to stand out? Run meetings like you've done it 100 times.</p>
+      </div>
+      <div class="persona-card">
+        <div class="persona-title">🌍 The International Professional</div>
+        <p>English is your second language but your ideas are world-class. MeetingOS gives you the exact words.</p>
+      </div>
+      <div class="persona-card">
+        <div class="persona-title">👩 The Woman In The Room</div>
+        <p>Tired of being talked over or having your ideas credited to others? Own the room from open to close.</p>
+      </div>
+      <div class="persona-card">
+        <div class="persona-title">🎓 The New Graduate</div>
+        <p>Just entered corporate life? Learn in days what others take years to figure out.</p>
+      </div>
+      <div class="persona-card">
+        <div class="persona-title">🔄 The Career Changer</div>
+        <p>New industry, new meeting culture. MeetingOS helps you adapt instantly.</p>
+      </div>
+      <div class="persona-card">
+        <div class="persona-title">📈 The Newly Promoted</div>
+        <p>Great at doing the work. Now you have to run the meetings. We've got you.</p>
+      </div>
+      <div class="persona-card">
+        <div class="persona-title">🤝 The Consultant or Freelancer</div>
+        <p>Client meetings are your revenue. Every one has to count.</p>
+      </div>
+      <div class="persona-card">
+        <div class="persona-title">🌐 The Remote Team Manager</div>
+        <p>Your meetings are your only touchpoint. Make every one matter.</p>
+      </div>
+    </div>
+
+    <p class="persona-closing">...and anyone who believes their time and ideas deserve to be taken seriously.</p>
+  </div>
+</section>
+
+<!-- ============ FOR ORGANIZATIONS (B2B) ============ -->
+<section class="organizations" id="organizations">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">🏢 For Organizations</div>
+      <h2>Your Organization Is Losing Money Every Single Day To Bad Meetings</h2>
+    </div>
+
+    <div class="roi-card">
+      <div class="roi-inner">
+        <div class="roi-head">The Math</div>
+        <p class="roi-lead">A team of 10 managers at $100K average salary wastes:</p>
+        <div class="roi-rows">
+          <div class="roi-row"><span>Per manager, per month</span><span>$1,800</span></div>
+          <div class="roi-row"><span>Total team, per month</span><span>$18,000</span></div>
+        </div>
+        <div class="roi-total"><span>Total, per year — gone</span><span>$216,000</span></div>
+        <div class="roi-compare"><span>MeetingOS Team Plan</span><span>$499 / year</span></div>
+        <div class="roi-result">ROI: 43,000% in Year One</div>
+      </div>
+    </div>
+
+    <div class="b2b-grid">
+      <div class="b2b-card">
+        <div class="b2b-icon">💰</div>
+        <h3>Measurable Cost Savings</h3>
+        <p>Reduce meeting waste immediately. Every manager who runs tighter meetings saves hours every week. The ROI is calculable from day one.</p>
+      </div>
+      <div class="b2b-card">
+        <div class="b2b-icon">🚀</div>
+        <h3>Accelerate New Manager Effectiveness</h3>
+        <p>Every time you promote a high performer to manager they spend 6–12 months figuring out how to run meetings. MeetingOS cuts that to days.</p>
+      </div>
+      <div class="b2b-card">
+        <div class="b2b-icon">🌐</div>
+        <h3>Consistent Leadership Communication</h3>
+        <p>Your senior leaders run great meetings. Your middle managers struggle. MeetingOS closes that gap across your entire organization.</p>
+      </div>
+    </div>
+
+    <div class="who-buys-title">Who Buys MeetingOS For Their Team</div>
+    <div class="who-buys-grid">
+      <div class="who-buys-card">
+        <h4>Fast-Growing Startups</h4>
+        <p>Promoting ICs to managers faster than you can train them</p>
+      </div>
+      <div class="who-buys-card">
+        <h4>Remote-First Companies</h4>
+        <p>Meetings are your only team touchpoint</p>
+      </div>
+      <div class="who-buys-card">
+        <h4>Consulting & Professional Services</h4>
+        <p>Client meetings are your revenue</p>
+      </div>
+      <div class="who-buys-card">
+        <h4>Sales Organizations</h4>
+        <p>Better meeting skills = more closed deals</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRICING ============ -->
+<section id="pricing">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Pricing</div>
+      <h2>Simple, Honest Pricing</h2>
+    </div>
+    <div class="pricing-banner">🎉 Limited Time Introductory Pricing — Regular prices shown in brackets</div>
+
+    <div class="pricing-block">
+      <div class="pricing-subhead">👤 For Individuals</div>
+      <div class="pricing-grid">
+        <div class="price-card">
+          <div class="price-tier-name">Free</div>
+          <div class="price-amount"><span class="free-label">$0</span></div>
+          <div class="price-sub">Always free</div>
+          <ul class="price-features">
+            <li><span class="check">✓</span> MeetingSmart + MeetingFit</li>
+            <li><span class="check">✓</span> No account or API key needed</li>
+          </ul>
+          <a href="https://shetan01.github.io/meetingsmart" class="btn btn-outline btn-full">Start Free →</a>
+        </div>
+
+        <div class="price-card">
+          <div class="price-tier-name">Single Tool</div>
+          <div class="price-amount">$7 <span class="regular">($9)</span></div>
+          <div class="price-sub">One-time payment</div>
+          <ul class="price-features">
+            <li><span class="check">✓</span> Any one AI tool of your choice</li>
+            <li><span class="check">✓</span> Lifetime access, no subscription</li>
+          </ul>
+          <a href="#tools" class="btn btn-outline btn-full">Choose a Tool →</a>
+        </div>
+
+        <div class="price-card featured">
+          <div class="popular-tag">⭐ Most Popular</div>
+          <div class="price-tier-name">MeetingOS Starter</div>
+          <div class="price-amount">$19 <span class="regular">($29)</span></div>
+          <div class="price-sub">One-time payment</div>
+          <ul class="price-features">
+            <li><span class="check">✓</span> All 4 AI tools — Prep + Kickoff + Distill + Rally</li>
+            <li><span class="check">✓</span> Lifetime access, no subscription</li>
+          </ul>
+          <a href="https://gum.co/meetingos" class="btn btn-primary btn-full">Get MeetingOS →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="pricing-block">
+      <div class="pricing-subhead">🏢 For Organizations</div>
+      <div class="pricing-grid">
+        <div class="price-card b2b-tier">
+          <div class="price-tier-name">Team Starter</div>
+          <div class="price-amount">$199<span class="per">/year</span></div>
+          <div class="price-sub">Billed annually</div>
+          <ul class="price-features">
+            <li><span class="check">✓</span> Up to 10 managers</li>
+            <li><span class="check">✓</span> All 6 MeetingOS tools</li>
+            <li><span class="check">✓</span> Onboarding support from Sherry</li>
+          </ul>
+          <a href="mailto:sssherry@gmail.com" class="btn btn-outline btn-full">Get Team Starter →</a>
+        </div>
+
+        <div class="price-card b2b-tier featured">
+          <div class="popular-tag">⭐ Most Popular</div>
+          <div class="price-tier-name">Team Growth</div>
+          <div class="price-amount">$499<span class="per">/year</span></div>
+          <div class="price-sub">Billed annually</div>
+          <ul class="price-features">
+            <li><span class="check">✓</span> Up to 50 managers</li>
+            <li><span class="check">✓</span> All 6 MeetingOS tools</li>
+            <li><span class="check">✓</span> Priority support + monthly check-in with Sherry</li>
+          </ul>
+          <a href="mailto:sssherry@gmail.com" class="btn btn-gold btn-full">Get Team Growth →</a>
+        </div>
+
+        <div class="price-card b2b-tier">
+          <div class="price-tier-name">Enterprise</div>
+          <div class="price-amount">Custom</div>
+          <div class="price-sub">Tailored to your organization</div>
+          <ul class="price-features">
+            <li><span class="check">✓</span> Unlimited users</li>
+            <li><span class="check">✓</span> Custom features and integrations</li>
+            <li><span class="check">✓</span> Dedicated support</li>
+          </ul>
+          <a href="mailto:sssherry@gmail.com" class="btn btn-outline btn-full">Contact Sherry →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section id="about">
+  <div class="container about-wrap">
+    <div class="about-avatar">👩‍💻</div>
+    <div class="eyebrow">The Story</div>
+    <h2 style="font-size:clamp(24px,4vw,34px);font-weight:800;letter-spacing:-0.02em;margin-bottom:28px;">Built By Someone Who Lived Both Sides Of This Problem</h2>
+    <p class="body">I spent 20 years inside enterprise meetings at Microsoft, Google, Cisco, and Wells Fargo. I watched brilliant ideas go unheard. I watched hours evaporate into status updates. I watched talented professionals — technically brilliant, deeply capable — struggle to make their voice heard in rooms that rewarded presence over substance. And I watched organizations lose millions to meetings that produced nothing. MeetingOS is the suite I always wished existed. Built with AI. Designed for humans. Proven in the boardroom. Whether you are an individual trying to own the room or an organization trying to stop bleeding meeting costs — MeetingOS was built for you.</p>
+    <div class="about-author">— Sherry Tan, Founder of MeetingOS</div>
+    <div class="about-author-sub">20+ years at Microsoft, Google, Cisco, Wells Fargo</div>
+    <a href="https://sherry-tan.vercel.app" class="about-link">sherry-tan.vercel.app</a>
+  </div>
+</section>
+
+<!-- ============ FINAL CTA ============ -->
+<section class="final-cta">
+  <div class="container">
+    <h2>Ready To Transform How You Meet?</h2>
+    <p>Whether you're one person or a whole organization — MeetingOS meets you where you are.</p>
+    <div class="final-cta-grid">
+      <div class="final-cta-card b2c">
+        <div class="fc-icon">👤</div>
+        <h3>For You</h3>
+        <p>Start with free tools, upgrade when ready</p>
+        <a href="https://shetan01.github.io/meetingsmart" class="btn btn-primary btn-full">Try Free Tools →</a>
+      </div>
+      <div class="final-cta-card b2b">
+        <div class="fc-icon">🏢</div>
+        <h3>For Your Organization</h3>
+        <p>See ROI from day one</p>
+        <a href="mailto:sssherry@gmail.com" class="btn btn-gold btn-full">Contact Sherry →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-logo"><span>🚀</span> MeetingOS — Built by Sherry Tan</div>
+      <div class="footer-links">
+        <a href="https://sherry-tan.vercel.app">sherry-tan.vercel.app</a>
+        <a href="https://linkedin.com/in/sherry-tan-732b0314">LinkedIn</a>
+        <a href="https://github.com/shetan01">GitHub</a>
+      </div>
+    </div>
+    <p class="footer-copy">© 2026 MeetingOS. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+  const toggle = document.getElementById('menuToggle');
+  const links = document.getElementById('navLinks');
+  toggle.addEventListener('click', () => links.classList.toggle('open'));
+  links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
+</script>
+
+</body>
+</html>
