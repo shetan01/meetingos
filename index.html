@@ -437,6 +437,36 @@
   .footer-links a:hover{color:var(--teal-bright);}
   .footer-copy{text-align:center;color:var(--text-3);font-size:13px;}
 
+  /* ---------- Founding Banner ---------- */
+  .founding-banner{
+    width:100%;background:linear-gradient(90deg, var(--teal), #00b894);
+    color:var(--navy-950);text-align:center;font-weight:700;font-size:14.5px;
+    padding:11px 20px;
+  }
+
+  /* ---------- Comparison Table ---------- */
+  .compare-table-wrap{overflow-x:auto;margin-top:8px;}
+  .compare-table{width:100%;border-collapse:collapse;min-width:560px;background:var(--navy-800);border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);}
+  .compare-table th,.compare-table td{padding:14px 20px;text-align:center;font-size:14.5px;border-bottom:1px solid var(--border);}
+  .compare-table th{font-size:12.5px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;color:var(--text-3);background:var(--navy-850);}
+  .compare-table td:first-child,.compare-table th:first-child{text-align:left;color:var(--text-1);font-weight:600;}
+  .compare-table th.meetingos-col,.compare-table td.meetingos-col{background:rgba(0,212,170,0.10);color:var(--teal-bright);font-weight:700;}
+  .compare-table tr:last-child td{border-bottom:none;}
+
+  /* ---------- Price strikethrough ---------- */
+  .price-card s{color:var(--text-3);text-decoration:line-through;font-weight:500;}
+  .price-amount s{font-size:15px;margin-right:6px;}
+  .price-new{color:var(--teal-bright);}
+  .price-annual{font-size:13px;color:var(--text-3);margin:2px 0 12px;}
+  .price-annual s{font-size:13px;}
+  .founding-tag{display:block;font-size:12px;font-weight:700;color:var(--gold-bright);margin:4px 0 14px;}
+  .pricing-note{text-align:center;max-width:600px;margin:32px auto 0;color:var(--text-3);font-size:13.5px;}
+
+  /* ---------- Tool feature list (mini) ---------- */
+  .tool-feature-list{margin:0 0 20px;}
+  .tool-feature-list li{font-size:13px;color:var(--text-2);padding:4px 0;display:flex;gap:8px;align-items:flex-start;}
+  .tool-feature-list li .check{color:var(--teal-bright);font-weight:800;flex-shrink:0;}
+
   /* ---------- Responsive ---------- */
   @media (max-width:960px){
     .stats-grid{grid-template-columns:1fr;}
@@ -476,6 +506,9 @@
 <div class="bg-glow"></div>
 <div class="bg-grid"></div>
 
+<!-- ============ FOUNDING MEMBER BANNER ============ -->
+<div class="founding-banner">🎉 Special Founding Member Rates — Limited availability</div>
+
 <!-- ============ NAVBAR ============ -->
 <header class="navbar">
   <div class="container nav-inner">
@@ -488,7 +521,7 @@
     </nav>
     <div class="nav-cta">
       <a href="https://shetan01.github.io/meetingsmart" class="btn btn-outline btn-sm">Try Free →</a>
-      <a href="https://gum.co/meetingos" class="btn btn-primary btn-sm">Get MeetingOS →</a>
+      <a href="https://gum.co/meetingos" class="btn btn-primary btn-sm">Get MeetingOS Pro →</a>
       <button class="nav-menu-toggle" id="menuToggle" aria-label="Toggle menu">☰</button>
     </div>
   </div>
@@ -516,15 +549,15 @@
 <section class="hero">
   <div class="hero-orb"></div>
   <div class="container hero-content">
-    <div class="hero-banner">🎉 Introductory Pricing — Save up to 35% for a limited time</div>
+    <div class="hero-banner">🎉 Special Founding Member Rates — Limited availability</div>
     <h1>The Complete Meeting<br>Intelligence <span class="gradient-text">Suite</span></h1>
     <p class="hero-sub">Six AI-powered tools that transform how your meetings run — before, during, and after.</p>
     <p class="hero-universal">"If you've ever left a meeting thinking <em>'that could have gone better'</em> — MeetingOS was built for you."</p>
     <div class="hero-ctas">
       <a href="https://shetan01.github.io/meetingsmart" class="btn btn-primary">Try Free Tools →</a>
-      <a href="https://gum.co/meetingos" class="btn btn-gold">Get MeetingOS Bundle →</a>
+      <a href="https://gum.co/meetingos" class="btn btn-gold">Get MeetingOS Pro →</a>
     </div>
-    <div class="hero-note">No credit card required to start · Lifetime access on paid tools</div>
+    <div class="hero-note">No credit card required to start · Cancel anytime · Special founding member rates available now</div>
   </div>
 </section>
 
@@ -553,6 +586,35 @@
   </div>
 </section>
 
+<!-- ============ WHY MEETINGOS IS DIFFERENT ============ -->
+<section id="why-different">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">The Difference</div>
+      <h2>Why MeetingOS Is Different</h2>
+      <p>Most meeting tools do one thing — record and transcribe. MeetingOS covers your complete meeting lifecycle.</p>
+    </div>
+    <div class="compare-table-wrap">
+      <table class="compare-table">
+        <thead>
+          <tr><th>Feature</th><th>Most Tools</th><th class="meetingos-col">MeetingOS</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Transcription</td><td>✅</td><td class="meetingos-col">✅</td></tr>
+          <tr><td>Speaker identification</td><td>✅</td><td class="meetingos-col">✅</td></tr>
+          <tr><td>5 flexible input methods</td><td>❌</td><td class="meetingos-col">✅</td></tr>
+          <tr><td>No bot needed</td><td>❌</td><td class="meetingos-col">✅</td></tr>
+          <tr><td>Privacy friendly</td><td>❌</td><td class="meetingos-col">✅</td></tr>
+          <tr><td>Meeting preparation</td><td>❌</td><td class="meetingos-col">✅</td></tr>
+          <tr><td>Meeting opening</td><td>❌</td><td class="meetingos-col">✅</td></tr>
+          <tr><td>Meeting closing</td><td>❌</td><td class="meetingos-col">✅</td></tr>
+          <tr><td>Price</td><td>$10–47/month</td><td class="meetingos-col">$9–25/month</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
 <!-- ============ TOOLS ============ -->
 <section id="tools">
   <div class="container">
@@ -568,8 +630,8 @@
         <div class="tool-name">MeetingPrep</div>
         <p class="tool-desc">Walk into every meeting ready. AI-powered preparation for organizers and participants.</p>
         <div class="tool-actions">
-          <a href="https://shetan01.github.io/meetingprep" class="tool-try">Try it →</a>
-          <a href="https://gum.co/meetingprep" class="tool-price">Buy $7</a>
+          <a href="https://meetingprep-pro.vercel.app?access=SHERRY2026" class="tool-try">Try it →</a>
+          <a href="https://gum.co/meetingprep" class="tool-price">$7/mo</a>
         </div>
       </div>
 
@@ -578,18 +640,25 @@
         <div class="tool-name">MeetingKickoff</div>
         <p class="tool-desc">Start strong. Perfect opening statement, icebreaker, and agenda framing for any meeting.</p>
         <div class="tool-actions">
-          <a href="https://shetan01.github.io/meetingkickoff" class="tool-try">Try it →</a>
-          <a href="https://gum.co/meetingkickoff" class="tool-price">Buy $7</a>
+          <a href="https://meetingkickoff-pro.vercel.app?access=SHERRY2026" class="tool-try">Try it →</a>
+          <a href="https://gum.co/meetingkickoff" class="tool-price">$7/mo</a>
         </div>
       </div>
 
       <div class="tool-card">
         <span class="tool-icon">🧠</span>
         <div class="tool-name">MeetingDistill</div>
-        <p class="tool-desc">Transform raw notes or transcripts into pure actionable clarity in seconds.</p>
+        <p class="tool-desc">The complete meeting intelligence tool. Record live browser meetings, upload any audio file, paste transcripts, or work from raw notes — MeetingDistill transcribes with speaker identification and distills everything into pure actionable clarity.</p>
+        <ul class="tool-feature-list">
+          <li><span class="check">✓</span> Live browser tab recording (no bot needed)</li>
+          <li><span class="check">✓</span> Audio file upload (any format)</li>
+          <li><span class="check">✓</span> Paste transcript or raw notes</li>
+          <li><span class="check">✓</span> From memory</li>
+          <li><span class="check">✓</span> Speaker identification included</li>
+        </ul>
         <div class="tool-actions">
-          <a href="https://shetan01.github.io/meetingdistill" class="tool-try">Try it →</a>
-          <a href="https://gum.co/meetingdistill" class="tool-price">Buy $7</a>
+          <a href="https://meetingdistill-pro.vercel.app?access=SHERRY2026" class="tool-try">Try it →</a>
+          <a href="https://gum.co/meetingdistill" class="tool-price">$9/mo</a>
         </div>
       </div>
 
@@ -598,8 +667,8 @@
         <div class="tool-name">MeetingRally</div>
         <p class="tool-desc">End every meeting with momentum. Powerful closing, call to action, and rally cry.</p>
         <div class="tool-actions">
-          <a href="https://shetan01.github.io/meetingrally" class="tool-try">Try it →</a>
-          <a href="https://gum.co/meetingrally" class="tool-price">Buy $7</a>
+          <a href="https://meetingrally-pro.vercel.app?access=SHERRY2026" class="tool-try">Try it →</a>
+          <a href="https://gum.co/meetingrally" class="tool-price">$7/mo</a>
         </div>
       </div>
 
@@ -696,7 +765,7 @@
         </div>
         <div class="roi-total"><span>Total, per year — gone</span><span>$216,000</span></div>
         <p class="roi-lead">Make every dollar of that investment count.</p>
-        <div class="roi-compare"><span>MeetingOS Team Plan</span><span>$499 / year</span></div>
+        <div class="roi-compare"><span>MeetingOS Business Plan</span><span>$99 / month</span></div>
         <div class="roi-result">ROI: 43,000% in Year One</div>
       </div>
     </div>
@@ -748,7 +817,7 @@
       <div class="eyebrow">Pricing</div>
       <h2>Simple, Honest Pricing</h2>
     </div>
-    <div class="pricing-banner">🎉 Limited Time Introductory Pricing — Regular prices shown in brackets</div>
+    <div class="pricing-banner">🎉 Special Founding Member Rates — Limited availability</div>
 
     <div class="pricing-block">
       <div class="pricing-subhead">👤 For Individuals</div>
@@ -759,62 +828,114 @@
           <div class="price-sub">Always free</div>
           <ul class="price-features">
             <li><span class="check">✓</span> MeetingSmart + MeetingFit</li>
-            <li><span class="check">✓</span> No account or API key needed</li>
+            <li><span class="check">✓</span> No account needed</li>
           </ul>
           <a href="https://shetan01.github.io/meetingsmart" class="btn btn-outline btn-full">Start Free →</a>
         </div>
 
         <div class="price-card">
-          <div class="price-tier-name">Single Tool</div>
-          <div class="price-amount">$7 <span class="regular">($9)</span></div>
-          <div class="price-sub">One-time payment</div>
+          <div class="price-tier-name">MeetingDistill</div>
+          <div class="price-amount"><s>$12/month</s> <span class="price-new">$9/month</span></div>
+          <div class="founding-tag">🎉 Founding Member Rate</div>
+          <div class="price-annual"><s>$99/year</s> $79/year</div>
           <ul class="price-features">
-            <li><span class="check">✓</span> Any one AI tool of your choice</li>
-            <li><span class="check">✓</span> Lifetime access, no subscription</li>
+            <li><span class="check">✓</span> Live browser recording</li>
+            <li><span class="check">✓</span> Audio file upload</li>
+            <li><span class="check">✓</span> Speaker identification</li>
+            <li><span class="check">✓</span> AI distillation + action items</li>
+            <li><span class="check">✓</span> Follow-up email generation</li>
+            <li><span class="check">✓</span> Cancel anytime</li>
           </ul>
-          <a href="#tools" class="btn btn-outline btn-full">Choose a Tool →</a>
+          <a href="https://gum.co/meetingdistill" class="btn btn-outline btn-full">Get MeetingDistill →</a>
+        </div>
+
+        <div class="price-card">
+          <div class="price-tier-name">MeetingPrep</div>
+          <div class="price-amount"><s>$9/month</s> <span class="price-new">$7/month</span></div>
+          <div class="founding-tag">🎉 Founding Member Rate</div>
+          <div class="price-annual"><s>$79/year</s> $59/year</div>
+          <ul class="price-features">
+            <li><span class="check">✓</span> AI meeting preparation</li>
+            <li><span class="check">✓</span> Organizer + participant modes</li>
+            <li><span class="check">✓</span> Agenda, pre-read, facilitation tips</li>
+            <li><span class="check">✓</span> Cancel anytime</li>
+          </ul>
+          <a href="https://gum.co/meetingprep" class="btn btn-outline btn-full">Get MeetingPrep →</a>
+        </div>
+
+        <div class="price-card">
+          <div class="price-tier-name">MeetingKickoff</div>
+          <div class="price-amount"><s>$9/month</s> <span class="price-new">$7/month</span></div>
+          <div class="founding-tag">🎉 Founding Member Rate</div>
+          <div class="price-annual"><s>$79/year</s> $59/year</div>
+          <ul class="price-features">
+            <li><span class="check">✓</span> AI opening statement</li>
+            <li><span class="check">✓</span> Icebreaker generator</li>
+            <li><span class="check">✓</span> Agenda framing</li>
+            <li><span class="check">✓</span> Cancel anytime</li>
+          </ul>
+          <a href="https://gum.co/meetingkickoff" class="btn btn-outline btn-full">Get MeetingKickoff →</a>
+        </div>
+
+        <div class="price-card">
+          <div class="price-tier-name">MeetingRally</div>
+          <div class="price-amount"><s>$9/month</s> <span class="price-new">$7/month</span></div>
+          <div class="founding-tag">🎉 Founding Member Rate</div>
+          <div class="price-annual"><s>$79/year</s> $59/year</div>
+          <ul class="price-features">
+            <li><span class="check">✓</span> AI closing statement</li>
+            <li><span class="check">✓</span> Call to action generator</li>
+            <li><span class="check">✓</span> Rally cry — Forward + Reflection modes</li>
+            <li><span class="check">✓</span> Cancel anytime</li>
+          </ul>
+          <a href="https://gum.co/meetingrally" class="btn btn-outline btn-full">Get MeetingRally →</a>
         </div>
 
         <div class="price-card featured">
           <div class="popular-tag">⭐ Most Popular</div>
-          <div class="price-tier-name">MeetingOS Starter</div>
-          <div class="price-amount">$19 <span class="regular">($29)</span></div>
-          <div class="price-sub">One-time payment</div>
+          <div class="price-tier-name">MeetingOS Pro</div>
+          <div class="price-amount"><s>$39/month</s> <span class="price-new">$25/month</span></div>
+          <div class="founding-tag">🎉 Founding Member Rate — Save $14/month</div>
+          <div class="price-annual"><s>$299/year</s> $199/year</div>
           <ul class="price-features">
-            <li><span class="check">✓</span> All 4 AI tools — Prep + Kickoff + Distill + Rally</li>
-            <li><span class="check">✓</span> Lifetime access, no subscription</li>
+            <li><span class="check">✓</span> ALL 4 AI tools — Distill + Prep + Kickoff + Rally</li>
+            <li><span class="check">✓</span> Complete meeting lifecycle</li>
+            <li><span class="check">✓</span> Cancel anytime</li>
           </ul>
-          <a href="https://gum.co/meetingos" class="btn btn-primary btn-full">Get MeetingOS →</a>
+          <a href="https://gum.co/meetingos" class="btn btn-primary btn-full">Get MeetingOS Pro →</a>
         </div>
       </div>
+      <p class="pricing-note">⚡ Special founding member rates available for limited time. Cancel anytime — no long-term commitment required.</p>
     </div>
 
     <div class="pricing-block">
       <div class="pricing-subhead">🏢 For Organizations</div>
       <div class="pricing-grid">
         <div class="price-card b2b-tier">
-          <div class="price-tier-name">Team Starter</div>
-          <div class="price-amount">$199<span class="per">/year</span></div>
-          <div class="price-sub">Billed annually</div>
+          <div class="price-tier-name">MeetingOS Team</div>
+          <div class="price-amount"><s>$79/month</s> <span class="price-new">$49/month</span></div>
+          <div class="founding-tag">🎉 Founding Member Rate</div>
+          <div class="price-sub">Up to 3 users</div>
           <ul class="price-features">
-            <li><span class="check">✓</span> Up to 10 managers</li>
-            <li><span class="check">✓</span> All 6 MeetingOS tools</li>
+            <li><span class="check">✓</span> All 4 AI tools</li>
+            <li><span class="check">✓</span> 3 unique user access tokens</li>
             <li><span class="check">✓</span> Onboarding support from Sherry</li>
           </ul>
-          <a href="mailto:sssherry@gmail.com" class="btn btn-outline btn-full">Get Team Starter →</a>
+          <a href="mailto:meetingossupport@gmail.com" class="btn btn-outline btn-full">Get Team Plan →</a>
         </div>
 
         <div class="price-card b2b-tier featured">
           <div class="popular-tag">⭐ Most Popular</div>
-          <div class="price-tier-name">Team Growth</div>
-          <div class="price-amount">$499<span class="per">/year</span></div>
-          <div class="price-sub">Billed annually</div>
+          <div class="price-tier-name">MeetingOS Business</div>
+          <div class="price-amount"><s>$149/month</s> <span class="price-new">$99/month</span></div>
+          <div class="founding-tag">🎉 Founding Member Rate</div>
+          <div class="price-sub">Up to 8 users</div>
           <ul class="price-features">
-            <li><span class="check">✓</span> Up to 50 managers</li>
-            <li><span class="check">✓</span> All 6 MeetingOS tools</li>
+            <li><span class="check">✓</span> All 4 AI tools</li>
+            <li><span class="check">✓</span> 8 unique user access tokens</li>
             <li><span class="check">✓</span> Priority support + monthly check-in with Sherry</li>
           </ul>
-          <a href="mailto:sssherry@gmail.com" class="btn btn-gold btn-full">Get Team Growth →</a>
+          <a href="mailto:meetingossupport@gmail.com" class="btn btn-gold btn-full">Get Business Plan →</a>
         </div>
 
         <div class="price-card b2b-tier">
@@ -823,10 +944,10 @@
           <div class="price-sub">Tailored to your organization</div>
           <ul class="price-features">
             <li><span class="check">✓</span> Unlimited users</li>
-            <li><span class="check">✓</span> Custom features and integrations</li>
+            <li><span class="check">✓</span> Custom integrations</li>
             <li><span class="check">✓</span> Dedicated support</li>
           </ul>
-          <a href="mailto:sssherry@gmail.com" class="btn btn-outline btn-full">Contact Sherry →</a>
+          <a href="mailto:meetingossupport@gmail.com" class="btn btn-outline btn-full">Contact Sherry →</a>
         </div>
       </div>
     </div>
@@ -862,7 +983,7 @@
         <div class="fc-icon">🏢</div>
         <h3>For Your Organization</h3>
         <p>See ROI from day one</p>
-        <a href="mailto:sssherry@gmail.com" class="btn btn-gold btn-full">Contact Sherry →</a>
+        <a href="mailto:meetingossupport@gmail.com" class="btn btn-gold btn-full">Contact Sherry →</a>
       </div>
     </div>
   </div>
