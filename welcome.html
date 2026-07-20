@@ -196,6 +196,27 @@
   }
   .notes a:hover{text-decoration:underline;}
 
+  /* ---------- Error state ---------- */
+  .error-box{
+    text-align:center;
+    padding:32px 28px;
+    border-radius:var(--radius);
+    background:linear-gradient(180deg, var(--navy-850), var(--navy-800));
+    border:1px solid rgba(245,158,11,0.35);
+    margin-bottom:44px;
+  }
+
+  .error-box p{
+    font-size:15px;
+    color:var(--text-2);
+  }
+
+  .error-box a{
+    color:var(--gold-bright);
+    font-weight:600;
+  }
+  .error-box a:hover{text-decoration:underline;}
+
   footer{
     text-align:center;
     font-size:13px;
@@ -229,39 +250,43 @@
     <p class="signature">— Sherry Tan, Founder of MeetingOS</p>
   </header>
 
-  <div class="grid">
+  <div class="error-box" id="error-box" style="display:none;">
+    <p>Invalid access link. Please check your email for your access link or contact <a href="mailto:meetingossupport@gmail.com">meetingossupport@gmail.com</a></p>
+  </div>
+
+  <div class="grid" id="tool-grid">
 
     <div class="card">
       <div class="card-emoji">🧠</div>
       <h2>MeetingDistill</h2>
       <p>Record, transcribe, and distill any meeting into pure clarity.</p>
-      <a class="card-btn" href="https://meetingdistill-pro.vercel.app?token=WELCOME2026">Open Tool →</a>
+      <a class="card-btn" id="link-distill" href="#">Open Tool →</a>
     </div>
 
     <div class="card">
       <div class="card-emoji">📋</div>
       <h2>MeetingPrep</h2>
       <p>Walk into every meeting fully prepared.</p>
-      <a class="card-btn" href="https://meetingprep-pro.vercel.app?token=WELCOME2026">Open Tool →</a>
+      <a class="card-btn" id="link-prep" href="#">Open Tool →</a>
     </div>
 
     <div class="card">
       <div class="card-emoji">🚀</div>
       <h2>MeetingKickoff</h2>
       <p>Open every meeting with the perfect tone and energy.</p>
-      <a class="card-btn" href="https://meetingkickoff-pro.vercel.app?token=WELCOME2026">Open Tool →</a>
+      <a class="card-btn" id="link-kickoff" href="#">Open Tool →</a>
     </div>
 
     <div class="card">
       <div class="card-emoji">🎯</div>
       <h2>MeetingRally</h2>
       <p>Close every meeting with momentum and a powerful rally cry.</p>
-      <a class="card-btn" href="https://meetingrally-pro.vercel.app?token=WELCOME2026">Open Tool →</a>
+      <a class="card-btn" id="link-rally" href="#">Open Tool →</a>
     </div>
 
   </div>
 
-  <div class="notes">
+  <div class="notes" id="notes-box">
     <p>Bookmark this page for easy access to all your tools.</p>
     <p>Questions? Contact <a href="mailto:meetingossupport@gmail.com">meetingossupport@gmail.com</a></p>
   </div>
@@ -271,6 +296,28 @@
   </footer>
 
 </div>
+
+<script>
+  (function(){
+    var token = new URLSearchParams(window.location.search).get('token');
+    var grid = document.getElementById('tool-grid');
+    var notes = document.getElementById('notes-box');
+    var errorBox = document.getElementById('error-box');
+
+    if (!token) {
+      grid.style.display = 'none';
+      notes.style.display = 'none';
+      errorBox.style.display = 'block';
+      return;
+    }
+
+    var encodedToken = encodeURIComponent(token);
+    document.getElementById('link-distill').href = 'https://meetingdistill-pro.vercel.app?token=' + encodedToken;
+    document.getElementById('link-prep').href = 'https://meetingprep-pro.vercel.app?token=' + encodedToken;
+    document.getElementById('link-kickoff').href = 'https://meetingkickoff-pro.vercel.app?token=' + encodedToken;
+    document.getElementById('link-rally').href = 'https://meetingrally-pro.vercel.app?token=' + encodedToken;
+  })();
+</script>
 
 </body>
 </html>
